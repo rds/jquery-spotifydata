@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotting (jQuery Spotify Metadata API plugin example)</title>
+    <link rel="stylesheet" href="stylesheets/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="stylesheets/960.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="stylesheets/spotter.css" type="text/css" media="screen" />
+    <script src="https://www.google.com/jsapi?key=ABQIAAAADkiAGmkJQoX4qHCDZJ8IahT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSDlUR_DrrA-jx6vDqRJFSVpE1p7Q" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/jquery-spotifydata.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/spotting.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body lang="en">
+    <div class="container_12" id="container">
+      <header class="grid_12">
+        <h1>Spotting</h1>
+        <p>Find multiple tracks on Spotify in one go. Put each track on a new line and you're golden. Is it fool proof? Nope.</p>
+      </header>
+      <div class="grid_6">
+        <form id="spotting" action="index.html" method="post">
+          <div>
+            <label for="track"><strong>Tracks</strong> <span class="hint">seperated by new lines</span></label>
+            <a href="#" id="example">(Load example data if you're lazy)</a>
+            <textarea id="tracklist" name="tracks" cols="20" rows="20"></textarea>
+          </div>
+          <div>
+            <select name="country" id="countries">
+              <option value="FI">Finland</option>
+              <option value="FR">France</option>
+              <option value="NL">Netherlands</option>
+              <option value="NO">Norway</option>
+              <option value="ES">Spain</option>
+              <option value="SE">Sweden</option>
+              <option value="GB">United Kingdom</option>
+            </select>
+          </div>
+          <div>
+            <input type="submit" value="Find Tracks" />
+          </div>
+        </form>
+        <div id="links">
+          <h3>Links</h3>
+          <textarea class="mono" rows="0" cols="50"></textarea>
+          <a href="#" id="copylinks">Select All</a>
+        </div>
+      </div>
+      <div class="grid_6">
+        <h2>Results</h2>
+        <p id="status">Enter some tracks...</p>
+        <div id="results" style="display:none">
+          <div id="tracks" style="display:none">
+            <ul></ul>
+          </div>
+          <div id="notfound" style="display:none">
+            <h3>Not found</h3>
+            <ul></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

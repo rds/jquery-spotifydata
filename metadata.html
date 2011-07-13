@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Spotify Metadata API</title>
+    <link rel="stylesheet" href="stylesheets/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="stylesheets/960.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="stylesheets/spotter.css" type="text/css" media="screen" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/jquery-spotifydata.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      JSON.prettify = function(json) {
+        return JSON.stringify(json, null, '\t');
+      }
+      function log(msg) {
+        if (console && console.log) {
+          console.log(msg)
+        }
+      }
+      $(function() {
+        $('code.block').hide();        
+        $('#search').submit(function(e) {
+          e.preventDefault();
+          var method = $(this).find('select[name="method"]').val(), query = $(this).find('input[name="query"]').val();
+          log('Searching for ' + method + ' called ' + query);
+          $.spotifydata(method, query, function(data) {
+            $('#search-results').show().find('pre').text(JSON.prettify(data));
+          })
+        })
+        
+        $('#lookup-form').submit(function(e) {
+          e.preventDefault();
+          var uri = $('#uri').val(), extras = $('#extras').val();
+          log('Looking up ' + uri + ' with ' + extras);
+          $.spotifydata('lookup', uri, { extras: extras }, function(data) {
+            $('#lookup-results').show().find('pre').text(JSON.prettify(data));
+          })
+        })
+      })
+    </script>
+  </head>
+	<body lang="en">
+	  <div class="container_12" id="container">
+			<header class="grid_12">	
+    	 <h1>Spotify Metadata API Helpers for jQuery</h1>
+    	 <p>Search and lookup the <a href="http://www.spotify.com/" title="Spotify">Spotify</a> database using the <a href="http://developer.spotify.com/en/metadata-api/overview/" title="Spotify Metadata API">Metadata API</a>. Basic stuff really.</p>
+    	</header>
+    	<div class="grid_12">
+    	  <h2>Search</h2>
+    	  <p>Spotify Metadata API search, e.g. <em>Track</em> and <em>Shout</em>.</p>
+    	  <form class="inline" id="search" action="metadata.html" method="get">
+          <label for="method">Method</label>
+          <select name="method">
+            <option value="track">Track</option>
+            <option value="Album">Album</option>
+            <option value="artist">Artist</option>
+          </select>
+          <label for="query">Query</label>
+          <input type="text" name="query" placeholder="Shout" id="query">
+          <input type="submit" name="search" value="Search" id="search">
+        </form>
+        <code class="block" id="search-results"><pre></pre></code>
+    	</div>
+    	<div class="grid_12">
+    	  <h2>Lookup</h2>
+    	  <p>Spotify Metadata API lookup, e.g.:</p>
+    	  <ul>
+    	   <li><code>spotify:track:6NmXV4o6bmp704aPGyTVVG</code></li>
+    	   <li><code>spotify:album:6G9fHYDCoyEErUkHrFYfs4</code> (extras: <code>track</code> or <code>trackdetail</code>)</li>
+    	   <li><code>spotify:artist:4YrKBkKSVeqDamzBPWVnSJ</code> (extras: <code>album</code> or <code>albumdetail</code>)</li>
+    	  </ul>
+    	  <form class="inline" id="lookup-form" action="metadata.html" method="get">
+          <label for="uri">Spotify URI</label>
+          <input type="text" name="uri" placeholder="spotify:album:6G9fHYDCoyEErUkHrFYfs4" id="uri" size="43" />
+          <label for="extras">Extras</label>
+          <input type="text" name="extras" placeholder="trackdetail" id="extras" size="9" />
+          <input type="submit" name="lookup" value="Lookup" id="lookup" />
+        </form>
+        <code class="block" id="lookup-results"><pre></pre></code>
+    	</div>    	
+    	<footer class="grid_12">
+    	  &copy; 2011 <a href="http://www.maycontaincocoa.com/" title="May Contain Cocoa" target="_blank">May Contain Cocoa</a>.
+    	</footer>
+    </div>
+	</body>
+</html>
